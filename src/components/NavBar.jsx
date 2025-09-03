@@ -42,6 +42,23 @@ const NavBar = () => {
     }
   };
 
+  // Función mejorada para esperar a que el elemento exista
+  const waitForElementAndScroll = (sectionId, maxAttempts = 20, attempt = 1) => {
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      // El elemento existe, hacer scroll
+      scrollToSection(sectionId);
+    } else if (attempt < maxAttempts) {
+      // El elemento no existe todavía, esperar un poco más
+      setTimeout(() => {
+        waitForElementAndScroll(sectionId, maxAttempts, attempt + 1);
+      }, 150); // Intentar cada 150ms
+    } else {
+      console.warn(`No se pudo encontrar el elemento con id: ${sectionId}`);
+    }
+  };
+
   const closeMenu = () => {
     const navbarToggler = document.querySelector('.navbar-collapse');
     const togglerButton = document.querySelector('.navbar-toggler');
@@ -53,7 +70,7 @@ const NavBar = () => {
 
   const handleNavigation = (e, sectionId) => {
     e.preventDefault();
-    closeMenu(); // Cerrar menú inmediatamente
+    closeMenu();
     
     // Si estamos en la página principal, hacer scroll directo
     if (location.pathname === '/') {
@@ -61,10 +78,8 @@ const NavBar = () => {
     } else {
       // Si estamos en otra página, navegar al home primero
       navigate('/');
-      // Esperar a que se cargue la página y luego hacer scroll
-      setTimeout(() => {
-        scrollToSection(sectionId);
-      }, 300); // Aumentado el tiempo de espera
+      // Usar la función mejorada para esperar al elemento
+      waitForElementAndScroll(sectionId);
     }
   };
 
