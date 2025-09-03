@@ -374,7 +374,7 @@ const Admin = () => {
 
           {/* Tabs */}
           <div className="text-center mb-5" style={{ borderBottom: '1px solid #eee', paddingBottom: '20px' }}>
-            {['projects', 'Header', 'Sobre Mí', 'Contacto', 'Footer', 'Habilidades'].map(tab => (
+            {['projects', 'header', 'about', 'contact', 'footer', 'skills'].map(tab => (
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
