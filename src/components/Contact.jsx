@@ -151,7 +151,7 @@ const Contact = () => {
                   letterSpacing: '-1px'
                 }}
               >
-                {contactData.title || 'Contact Me'}
+                Contáctame!
               </h2>
             </div>
             
@@ -301,7 +301,7 @@ const Contact = () => {
                       e.target.style.color = '#F79995';
                     }}
                   >
-                    {formLoading ? 'Sending...' : 'Send Message'}
+                    {formLoading ? 'Enviando...' : 'Enviar Mensaje'}
                   </button>
                 </div>
               </form>

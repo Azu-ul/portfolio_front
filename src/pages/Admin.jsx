@@ -141,14 +141,6 @@ const Admin = () => {
     name: ''
   });
 
-  // Categorías disponibles
-  const availableCategories = [
-    { value: 'Técnicas', label: 'Habilidades Técnicas' },
-    { value: 'Profesionales', label: 'Habilidades Profesionales' },
-    { value: 'Idiomas', label: 'Idiomas' },
-    { value: 'Herramientas', label: 'Herramientas' }
-  ];
-
   const token = localStorage.getItem('token');
   const apiHeaders = { Authorization: `Bearer ${token}` };
   const API_BASE_URL = 'https://portfolio-back-h389.onrender.com';
@@ -382,7 +374,7 @@ const Admin = () => {
 
           {/* Tabs */}
           <div className="text-center mb-5" style={{ borderBottom: '1px solid #eee', paddingBottom: '20px' }}>
-            {['projects', 'header', 'about', 'contact', 'footer', 'skills'].map(tab => (
+            {['Proyectos', 'Header', 'Sobre Mí', 'Contacto', 'Footer', 'Habilidades'].map(tab => (
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
@@ -442,7 +434,6 @@ const Admin = () => {
           )}
 
           {/* Skills Tab SIMPLIFICADO */}
-          // Reemplaza la sección Skills Tab en tu Admin.jsx con este código:
 
           {activeTab === 'skills' && (
             <div className="row">
