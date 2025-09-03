@@ -8,7 +8,7 @@ const About = () => {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/content/about');
+        const response = await fetch('https://portfolio-back-h389.onrender.com/api/content/about');
         if (!response.ok) throw new Error('Error al cargar los datos de about');
         const data = await response.json();
         setAboutData(data);
