@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     if (storedToken) {
       const fetchUserData = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/auth/me', {
+          const response = await axios.get('https://portfolio-back-h389.onrender.com/api/auth/me', {
             headers: { Authorization: `Bearer ${storedToken}` }
           });
           setUser(response.data);
