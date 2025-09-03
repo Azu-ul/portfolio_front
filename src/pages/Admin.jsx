@@ -142,6 +142,7 @@ const Admin = () => {
 
   const token = localStorage.getItem('token');
   const apiHeaders = { Authorization: `Bearer ${token}` };
+  const API_BASE_URL = 'https://portfolio-back-h389.onrender.com';
 
   useEffect(() => {
     loadAllContent();
@@ -150,12 +151,12 @@ const Admin = () => {
   const loadAllContent = async () => {
     try {
       const [projectsRes, headerRes, aboutRes, contactRes, footerRes, skillsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/admin/projects'),
-        axios.get('http://localhost:5000/api/content/header'),
-        axios.get('http://localhost:5000/api/content/about'),
-        axios.get('http://localhost:5000/api/content/contact'),
-        axios.get('http://localhost:5000/api/content/footer'),
-        axios.get('http://localhost:5000/api/admin/skills')
+        axios.get(`${API_BASE_URL}/api/admin/projects`),
+        axios.get(`${API_BASE_URL}/api/content/header`),
+        axios.get(`${API_BASE_URL}/api/content/about`),
+        axios.get(`${API_BASE_URL}/api/content/contact`),
+        axios.get(`${API_BASE_URL}/api/content/footer`),
+        axios.get(`${API_BASE_URL}/api/admin/skills`)
       ]);
       
       setProjects(projectsRes.data);
@@ -196,14 +197,14 @@ const Admin = () => {
     try {
       if (id) {
         await axios.put(
-          `http://localhost:5000/api/admin/projects/${id}`,
+          `${API_BASE_URL}/api/admin/projects/${id}`,
           data,
           { headers: apiHeaders }
         );
         setStatus({ message: 'Proyecto actualizado exitosamente', type: 'success' });
       } else {
         await axios.post(
-          'http://localhost:5000/api/admin/projects',
+          `${API_BASE_URL}/api/admin/projects`,
           data,
           { headers: apiHeaders }
         );
@@ -221,7 +222,7 @@ const Admin = () => {
   const deleteProject = async (id) => {
     if (!window.confirm('¿Eliminar proyecto?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/projects/${id}`, { headers: apiHeaders });
+      await axios.delete(`${API_BASE_URL}/api/admin/projects/${id}`, { headers: apiHeaders });
       loadAllContent();
       setStatus({ message: 'Proyecto eliminado exitosamente', type: 'success' });
     } catch (error) {
@@ -232,7 +233,7 @@ const Admin = () => {
 
   const updateContent = async (section, data) => {
     try {
-      await axios.put(`http://localhost:5000/api/content/${section}`, data, { headers: apiHeaders });
+      await axios.put(`${API_BASE_URL}/api/content/${section}`, data, { headers: apiHeaders });
       loadAllContent();
       setStatus({ message: `Sección ${section} actualizada exitosamente`, type: 'success' });
     } catch (error) {
@@ -260,14 +261,14 @@ const Admin = () => {
     try {
       if (id) {
         await axios.put(
-          `http://localhost:5000/api/admin/skills/${id}`,
+          `${API_BASE_URL}/api/admin/skills/${id}`,
           skillData,
           { headers: apiHeaders }
         );
         setStatus({ message: 'Habilidad actualizada exitosamente', type: 'success' });
       } else {
         await axios.post(
-          'http://localhost:5000/api/admin/skills',
+          `${API_BASE_URL}/api/admin/skills`,
           skillData,
           { headers: apiHeaders }
         );
@@ -303,7 +304,7 @@ const Admin = () => {
   const deleteSkill = async (id) => {
     if (!window.confirm('¿Eliminar habilidad?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/skills/${id}`, { headers: apiHeaders });
+      await axios.delete(`${API_BASE_URL}/api/admin/skills/${id}`, { headers: apiHeaders });
       loadAllContent();
       setStatus({ message: 'Habilidad eliminada exitosamente', type: 'success' });
     } catch (error) {
