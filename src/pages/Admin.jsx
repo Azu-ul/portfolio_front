@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import Overlay from './Overlay';
+import Overlay from '../components/Overlay';
 
 // FormInput simple
 const FormInput = ({ label, name, value, onChange, type = 'text', options = null }) => {
