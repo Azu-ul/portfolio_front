@@ -71,7 +71,7 @@ const Button = ({ onClick, children, variant = 'primary', type = 'button' }) => 
 // StatusMessage
 const StatusMessage = ({ message, type, onClose }) => {
   if (!message) return null;
-  
+
   return (
     <div
       style={{
@@ -123,7 +123,7 @@ const Admin = () => {
     image: ''
   });
   const [status, setStatus] = useState({ message: '', type: '' });
-  
+
   // Skills simplificadas
   const [skills, setSkills] = useState([]);
   const [skillForm, setSkillForm] = useState({
@@ -167,7 +167,7 @@ const Admin = () => {
         axios.get(`${API_BASE_URL}/api/content/footer`),
         axios.get(`${API_BASE_URL}/api/admin/skills`)
       ]);
-      
+
       setProjects(projectsRes.data);
       setHeader(headerRes.data);
       setAbout(aboutRes.data);
@@ -177,9 +177,9 @@ const Admin = () => {
       console.log('Skills loaded:', skillsRes.data); // Debug
     } catch (error) {
       console.error('Error loading content:', error);
-      setStatus({ 
-        message: 'Error al cargar el contenido', 
-        type: 'error' 
+      setStatus({
+        message: 'Error al cargar el contenido',
+        type: 'error'
       });
     }
   };
@@ -267,7 +267,7 @@ const Admin = () => {
   const handleSkillSubmit = async (e) => {
     e.preventDefault();
     const { id, ...data } = skillForm;
-    
+
     // Datos simplificados para la skill
     const skillData = {
       type: 'skill',
@@ -367,9 +367,9 @@ const Admin = () => {
 
   return (
     <>
-      <section className="py-5 bg-white" style={{ 
-        fontFamily: 'Georgia, serif', 
-        minHeight: '100vh', 
+      <section className="py-5 bg-white" style={{
+        fontFamily: 'Georgia, serif',
+        minHeight: '100vh',
         paddingTop: '160px',
         marginTop: '100px'
       }}>
@@ -420,9 +420,9 @@ const Admin = () => {
                   {projectForm.id && (
                     <Button type="button" variant="secondary" onClick={resetProjectForm}>Cancelar</Button>
                   )}
-                  <StatusMessage 
-                    message={status.message} 
-                    type={status.type} 
+                  <StatusMessage
+                    message={status.message}
+                    type={status.type}
                     onClose={() => setStatus({ message: '', type: '' })}
                   />
                 </form>
@@ -442,49 +442,148 @@ const Admin = () => {
           )}
 
           {/* Skills Tab SIMPLIFICADO */}
+          // Reemplaza la sección Skills Tab en tu Admin.jsx con este código:
+
           {activeTab === 'skills' && (
             <div className="row">
               <div className="col-lg-6">
                 <h3>{skillForm.id ? 'Editar Habilidad' : 'Nueva Habilidad'}</h3>
                 <form onSubmit={handleSkillSubmit}>
-                  <FormInput 
-                    label="Categoría" 
-                    name="parent_category" 
-                    value={skillForm.parent_category} 
-                    options={availableCategories}
-                    onChange={val => setSkillForm({ ...skillForm, parent_category: val })} 
+                  {/* Campo de categoría mejorado */}
+                  <div className="mb-4">
+                    <label style={{ fontSize: '0.9rem', color: '#666', marginBottom: '8px', display: 'block' }}>
+                      Categoría
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        name="parent_category"
+                        value={skillForm.parent_category}
+                        onChange={(e) => setSkillForm({ ...skillForm, parent_category: e.target.value })}
+                        placeholder="Escribe una categoría o selecciona una existente"
+                        list="existing-categories"
+                        style={{
+                          width: '100%',
+                          padding: '12px 0',
+                          fontSize: '1rem',
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid #eee',
+                          outline: 'none',
+                          color: '#2c2c2c',
+                          fontFamily: 'Georgia, serif'
+                        }}
+                      />
+                      <datalist id="existing-categories">
+                        {/* Obtener categorías únicas de las skills existentes */}
+                        {[...new Set(skills.map(skill => skill.parent_category).filter(Boolean))].map((category, index) => (
+                          <option key={index} value={category} />
+                        ))}
+                      </datalist>
+                    </div>
+                    {/* Mostrar categorías existentes como sugerencias visuales */}
+                    <div style={{
+                      marginTop: '8px',
+                      fontSize: '0.8rem',
+                      color: '#999'
+                    }}>
+                      <span>Categorías existentes: </span>
+                      {[...new Set(skills.map(skill => skill.parent_category).filter(Boolean))].map((category, index, arr) => (
+                        <span key={index}>
+                          <button
+                            type="button"
+                            onClick={() => setSkillForm({ ...skillForm, parent_category: category })}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: '#F79995',
+                              textDecoration: 'underline',
+                              cursor: 'pointer',
+                              fontSize: '0.8rem',
+                              padding: '0',
+                              margin: '0 2px'
+                            }}
+                          >
+                            {category}
+                          </button>
+                          {index < arr.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <FormInput
+                    label="Nombre de la Habilidad"
+                    name="name"
+                    value={skillForm.name}
+                    onChange={val => setSkillForm({ ...skillForm, name: val })}
                   />
-                  <FormInput 
-                    label="Nombre de la Habilidad" 
-                    name="name" 
-                    value={skillForm.name} 
-                    onChange={val => setSkillForm({ ...skillForm, name: val })} 
-                  />
-                  <FormInput 
-                    label="Nivel (%)" 
-                    name="level" 
-                    type="range" 
-                    min="0"
-                    max="100"
-                    value={skillForm.level.toString()} 
-                    onChange={val => setSkillForm({ ...skillForm, level: parseInt(val) || 50 })} 
-                  />
-                  <div style={{ textAlign: 'center', marginBottom: '20px', fontSize: '1.2rem', color: '#F79995' }}>
+
+                  <div className="mb-4">
+                    <label style={{ fontSize: '0.9rem', color: '#666', marginBottom: '8px', display: 'block' }}>
+                      Nivel (%)
+                    </label>
+                    <input
+                      type="range"
+                      name="level"
+                      min="0"
+                      max="100"
+                      value={skillForm.level}
+                      onChange={(e) => setSkillForm({ ...skillForm, level: parseInt(e.target.value) || 0 })}
+                      style={{
+                        width: '100%',
+                        height: '2px',
+                        backgroundColor: '#eee',
+                        outline: 'none',
+                        appearance: 'none',
+                        borderRadius: '1px'
+                      }}
+                    />
+                    <style jsx>{`
+            input[type="range"]::-webkit-slider-thumb {
+              appearance: none;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: #F79995;
+              cursor: pointer;
+              border: 2px solid white;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            }
+            input[type="range"]::-moz-range-thumb {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: #F79995;
+              cursor: pointer;
+              border: 2px solid white;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            }
+          `}</style>
+                  </div>
+
+                  <div style={{
+                    textAlign: 'center',
+                    marginBottom: '20px',
+                    fontSize: '1.2rem',
+                    color: '#F79995',
+                    fontWeight: 'bold'
+                  }}>
                     {skillForm.level}%
                   </div>
-                  
+
                   <Button type="submit">{skillForm.id ? 'Actualizar' : 'Crear'}</Button>
                   {skillForm.id && (
                     <Button type="button" variant="secondary" onClick={resetSkillForm}>Cancelar</Button>
                   )}
-                  <StatusMessage 
-                    message={status.message} 
-                    type={status.type} 
+                  <StatusMessage
+                    message={status.message}
+                    type={status.type}
                     onClose={() => setStatus({ message: '', type: '' })}
                   />
                 </form>
               </div>
-              
+
               <div className="col-lg-6">
                 <h3>Habilidades Existentes ({skills.length})</h3>
                 <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
@@ -497,15 +596,15 @@ const Admin = () => {
                     return acc;
                   }, {})).map(([category, categorySkills]) => (
                     <div key={category} className="mb-4">
-                      <div style={{ 
-                        backgroundColor: '#f8f9fa', 
-                        padding: '15px', 
+                      <div style={{
+                        backgroundColor: '#f8f9fa',
+                        padding: '15px',
                         borderLeft: '4px solid #F79995',
                         marginBottom: '15px'
                       }}>
-                        <h4 style={{ 
-                          margin: '0', 
-                          color: '#2c2c2c', 
+                        <h4 style={{
+                          margin: '0',
+                          color: '#2c2c2c',
                           fontSize: '1.2rem',
                           fontWeight: '400'
                         }}>
@@ -513,21 +612,21 @@ const Admin = () => {
                         </h4>
                       </div>
                       {categorySkills.map(skill => (
-                        <div key={skill.id} style={{ 
-                          padding: '15px', 
+                        <div key={skill.id} style={{
+                          padding: '15px',
                           backgroundColor: 'white',
                           border: '1px solid #eee',
                           marginBottom: '10px',
                           borderRadius: '4px'
                         }}>
-                          <div style={{ 
+                          <div style={{
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             marginBottom: '10px'
                           }}>
-                            <h5 style={{ 
-                              margin: '0', 
+                            <h5 style={{
+                              margin: '0',
                               fontSize: '1rem',
                               color: '#2c2c2c'
                             }}>
@@ -580,9 +679,9 @@ const Admin = () => {
                 <FormInput label="LinkedIn URL" name="linkedin_url" value={header.linkedin_url || ''} onChange={val => setHeader({ ...header, linkedin_url: val })} />
                 <FormInput label="Website URL" name="website_url" value={header.website_url || ''} onChange={val => setHeader({ ...header, website_url: val })} />
                 <Button onClick={() => updateContent('header', header)}>Guardar Header</Button>
-                <StatusMessage 
-                  message={status.message} 
-                  type={status.type} 
+                <StatusMessage
+                  message={status.message}
+                  type={status.type}
                   onClose={() => setStatus({ message: '', type: '' })}
                 />
               </div>
@@ -597,9 +696,9 @@ const Admin = () => {
                 <FormInput label="Párrafo 1" name="paragraph_1" value={about.paragraph_1 || ''} onChange={val => setAbout({ ...about, paragraph_1: val })} />
                 <FormInput label="Párrafo 2" name="paragraph_2" value={about.paragraph_2 || ''} onChange={val => setAbout({ ...about, paragraph_2: val })} />
                 <Button onClick={() => updateContent('about', about)}>Guardar About</Button>
-                <StatusMessage 
-                  message={status.message} 
-                  type={status.type} 
+                <StatusMessage
+                  message={status.message}
+                  type={status.type}
                   onClose={() => setStatus({ message: '', type: '' })}
                 />
               </div>
@@ -616,9 +715,9 @@ const Admin = () => {
                 <FormInput label="Ubicación" name="location" value={contact.location || ''} onChange={val => setContact({ ...contact, location: val })} />
                 <FormInput label="LinkedIn" name="linkedin" value={contact.linkedin || ''} onChange={val => setContact({ ...contact, linkedin: val })} />
                 <Button onClick={() => updateContent('contact', contact)}>Guardar Contact</Button>
-                <StatusMessage 
-                  message={status.message} 
-                  type={status.type} 
+                <StatusMessage
+                  message={status.message}
+                  type={status.type}
                   onClose={() => setStatus({ message: '', type: '' })}
                 />
               </div>
@@ -634,9 +733,9 @@ const Admin = () => {
                 <FormInput label="Texto de Ubicación" name="location_text" value={footer.location_text || ''} onChange={val => setFooter({ ...footer, location_text: val })} />
                 <FormInput label="Texto de Especialidad" name="specialty_text" value={footer.specialty_text || ''} onChange={val => setFooter({ ...footer, specialty_text: val })} />
                 <Button onClick={() => updateContent('footer', footer)}>Guardar Footer</Button>
-                <StatusMessage 
-                  message={status.message} 
-                  type={status.type} 
+                <StatusMessage
+                  message={status.message}
+                  type={status.type}
                   onClose={() => setStatus({ message: '', type: '' })}
                 />
               </div>
