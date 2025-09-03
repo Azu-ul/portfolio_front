@@ -592,7 +592,7 @@ const Admin = () => {
           {activeTab === 'about' && (
             <div className="row justify-content-center">
               <div className="col-lg-8">
-                <h3>Editar About</h3>
+                <h3>Editar Sobre Mí</h3>
                 <FormInput label="Título" name="title" value={about.title || ''} onChange={val => setAbout({ ...about, title: val })} />
                 <FormInput label="Párrafo 1" name="paragraph_1" value={about.paragraph_1 || ''} onChange={val => setAbout({ ...about, paragraph_1: val })} />
                 <FormInput label="Párrafo 2" name="paragraph_2" value={about.paragraph_2 || ''} onChange={val => setAbout({ ...about, paragraph_2: val })} />
@@ -609,7 +609,7 @@ const Admin = () => {
           {activeTab === 'contact' && (
             <div className="row justify-content-center">
               <div className="col-lg-8">
-                <h3>Editar Contact</h3>
+                <h3>Editar Contacto</h3>
                 <FormInput label="Título" name="title" value={contact.title || ''} onChange={val => setContact({ ...contact, title: val })} />
                 <FormInput label="Email" name="email" value={contact.email || ''} type="email" onChange={val => setContact({ ...contact, email: val })} />
                 <FormInput label="Website" name="website" value={contact.website || ''} onChange={val => setContact({ ...contact, website: val })} />

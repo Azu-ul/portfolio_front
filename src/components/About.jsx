@@ -67,7 +67,7 @@ const About = () => {
                   letterSpacing: '-1px'
                 }}
               >
-                {aboutData.title}
+                Sobre Mí
               </h2>
             </div>
             

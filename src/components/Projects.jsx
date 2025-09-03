@@ -49,7 +49,7 @@ const Projects = () => {
               <div className="spinner-border text-dark" role="status" style={{ width: '2rem', height: '2rem' }}>
                 <span className="visually-hidden">Loading...</span>
               </div>
-              <p className="mt-3 text-muted">Loading projects...</p>
+              <p className="mt-3 text-muted">Cargando proyectos...</p>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ const Projects = () => {
                   letterSpacing: '-1px'
                 }}
               >
-                Projects
+                Proyectos
               </h2>
             </div>
 
@@ -222,7 +222,7 @@ const Projects = () => {
                                 e.target.style.borderColor = '#F79995';
                               }}
                             >
-                              View Project →
+                               Ver Proyecto →
                             </a>
                           </div>
                         )}
