@@ -5,3 +5,37 @@
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
 }
+
+/* CSS para agregar a tu archivo main.css o donde manejes los estilos */
+
+/* Padding responsivo para las secciones principales */
+.section-responsive-padding {
+  padding-top: 100px !important;
+}
+
+/* En móviles, reducir el padding */
+@media (max-width: 768px) {
+  .section-responsive-padding {
+    padding-top: 80px !important;
+  }
+}
+
+/* Para tablets */
+@media (max-width: 992px) and (min-width: 769px) {
+  .section-responsive-padding {
+    padding-top: 90px !important;
+  }
+}
+
+/* Asegurar que el navbar no cubra contenido */
+@media (max-width: 576px) {
+  .section-responsive-padding {
+    padding-top: 70px !important;
+  }
+  
+  /* Reducir el padding del navbar en móviles */
+  .navbar {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+}

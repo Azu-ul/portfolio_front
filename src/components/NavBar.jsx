@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Overlay from './Overlay';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Importa el JavaScript de Bootstrap
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const NavBar = () => {
   const { user, isAdmin, logout } = useAuth();
@@ -28,47 +28,55 @@ const NavBar = () => {
 
   const isMiCuentaPage = location.pathname === '/mi-cuenta';
 
-  const scrollToSection = (e, sectionId) => {
-    e.preventDefault();
+  const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
-    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+    if (element) {
+      const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const closeMenu = () => {
     const navbarToggler = document.querySelector('.navbar-collapse');
-    if (navbarToggler.classList.contains('show')) {
-      document.querySelector('.navbar-toggler').click();
+    const togglerButton = document.querySelector('.navbar-toggler');
+    
+    if (navbarToggler && navbarToggler.classList.contains('show') && togglerButton) {
+      togglerButton.click();
     }
   };
 
   const handleNavigation = (e, sectionId) => {
     e.preventDefault();
+    closeMenu(); // Cerrar menú inmediatamente
+    
+    // Si estamos en la página principal, hacer scroll directo
+    if (location.pathname === '/') {
+      scrollToSection(sectionId);
+    } else {
+      // Si estamos en otra página, navegar al home primero
+      navigate('/');
+      // Esperar a que se cargue la página y luego hacer scroll
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 300); // Aumentado el tiempo de espera
+    }
+  };
+
+  const handleHomeNavigation = (e) => {
+    e.preventDefault();
+    closeMenu();
+    
     if (location.pathname !== '/') {
       navigate('/');
-      // Esperamos a que se complete la navegación antes de hacer scroll
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const navbarHeight = document.querySelector('.navbar').offsetHeight;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 100);
     } else {
-      scrollToSection(e, sectionId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    closeMenu();
   };
 
   return (
@@ -84,19 +92,10 @@ const NavBar = () => {
         }}
       >
         <div className="container">
-          {/* Modificar el enlace de Inicio */}
           <a 
             className="navbar-brand fw-bold text-decoration-none" 
             href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              if (location.pathname !== '/') {
-                navigate('/');
-              } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-              closeMenu();
-            }}
+            onClick={handleHomeNavigation}
             style={{ 
               color: '#2c2c2c', 
               fontSize: '1.5rem',
@@ -161,7 +160,7 @@ const NavBar = () => {
                   onMouseOver={(e) => e.target.style.color = '#2c2c2c'}
                   onMouseOut={(e) => e.target.style.color = '#666'}
                 >
-                  About
+                  Sobre Mí
                 </a>
               </li>
               <li className="nav-item">
@@ -178,7 +177,7 @@ const NavBar = () => {
                   onMouseOver={(e) => e.target.style.color = '#2c2c2c'}
                   onMouseOut={(e) => e.target.style.color = '#666'}
                 >
-                  Skills
+                  Habilidades
                 </a>
               </li>
               <li className="nav-item">
@@ -195,7 +194,7 @@ const NavBar = () => {
                   onMouseOver={(e) => e.target.style.color = '#2c2c2c'}
                   onMouseOut={(e) => e.target.style.color = '#666'}
                 >
-                  Projects
+                  Proyectos
                 </a>
               </li>
               <li className="nav-item">
@@ -212,7 +211,7 @@ const NavBar = () => {
                   onMouseOver={(e) => e.target.style.color = '#2c2c2c'}
                   onMouseOut={(e) => e.target.style.color = '#666'}
                 >
-                  Contact Me
+                  Contáctame
                 </a>
               </li>
               
@@ -270,6 +269,7 @@ const NavBar = () => {
                     <a 
                       className="btn btn-link nav-link px-3 border-0"
                       onClick={(e) => {
+                        e.preventDefault();
                         handleLogout();
                         closeMenu();
                       }}
@@ -279,12 +279,13 @@ const NavBar = () => {
                         letterSpacing: '1px',
                         textDecoration: 'none',
                         backgroundColor: 'transparent',
-                        transition: 'color 0.3s ease'
+                        transition: 'color 0.3s ease',
+                        cursor: 'pointer'
                       }}
                       onMouseOver={(e) => e.target.style.color = '#2c2c2c'}
                       onMouseOut={(e) => e.target.style.color = '#666'}
                     >
-                      Logout
+                      Cerrar Sesión
                     </a>
                   </li>
                 </>

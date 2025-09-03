@@ -96,11 +96,10 @@ const Contact = () => {
     return (
       <section 
         id="contact" 
-        className="py-5 bg-white" 
+        className="py-5 bg-white section-responsive-padding" 
         style={{ 
           fontFamily: 'Georgia, serif', 
           minHeight: '100vh',
-          paddingTop: '120px !important'
         }}
       >
         <div className="container">

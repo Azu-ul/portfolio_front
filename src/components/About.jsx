@@ -29,7 +29,7 @@ const About = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
-              <div className="text-center" style={{ paddingTop: '100px' }}>
+              <div className="text-center section-responsive-padding">
                 <div className="spinner-border text-dark" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>

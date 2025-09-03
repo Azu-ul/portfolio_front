@@ -52,11 +52,10 @@ const MiCuenta = () => {
 
   return (
     <section 
-      className="py-5 bg-white" 
+      className="py-5 bg-white section-responsive-padding" 
       style={{ 
         fontFamily: 'Georgia, serif', 
         minHeight: '100vh',
-        paddingTop: '160px',  // Aumentado de calc(120px + 2rem) a 160px
         marginTop: '100px'
       }}
     >
