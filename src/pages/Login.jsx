@@ -50,7 +50,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      // Agregar el prefijo a la ruta relativa
+      const response = await axios.post('https://portfolio-back-h389.onrender.com/api/auth/login', formData);
       login(response.data);
       showOverlay('Inicio de sesión exitoso', 'success');
       setTimeout(() => navigate('/'), 1500);
@@ -110,7 +111,7 @@ export default function Login() {
                 color: '#2c2c2c',
                 letterSpacing: '0.5px'
               }}>
-                Sign In
+                Ingresar
               </h2>
               
               <form onSubmit={handleSubmit}>
@@ -126,7 +127,7 @@ export default function Login() {
                     disabled={loading} 
                     value={formData.email} 
                     onChange={handleInputChange} 
-                    placeholder="your.email@domain.com"
+                    placeholder="tu.email@domain.com"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -135,7 +136,7 @@ export default function Login() {
                 
                 <div style={{ marginBottom: '50px' }}>
                   <label style={labelStyle}>
-                    Password
+                    Contraseña
                   </label>
                   <input 
                     type='password' 
@@ -145,7 +146,7 @@ export default function Login() {
                     disabled={loading} 
                     value={formData.password} 
                     onChange={handleInputChange}
-                    placeholder="Your password"
+                    placeholder="Tu contraseña"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -173,7 +174,7 @@ export default function Login() {
                   onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#1a1a1a')}
                   onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#2c2c2c')}
                 >
-                  {loading ? 'Signing in...' : 'Sign In'}
+                  {loading ? 'Ingresando...' : 'Ingresar'}
                 </button>
               </form>
               
@@ -188,7 +189,7 @@ export default function Login() {
                   fontSize: '16px',
                   letterSpacing: '0.3px'
                 }}>
-                  Don't have an account?
+                  No tienes una cuenta?
                 </p>
                 <Link 
                   to="/register" 
@@ -212,7 +213,7 @@ export default function Login() {
                     e.target.style.borderColor = '#2c2c2c';
                   }}
                 >
-                  Create Account
+                  Crear Cuenta
                 </Link>
               </div>
               
@@ -232,7 +233,7 @@ export default function Login() {
                   onMouseEnter={(e) => e.target.style.color = '#666'}
                   onMouseLeave={(e) => e.target.style.color = '#999'}
                 >
-                  Forgot your password?
+                  Olvidaste la contraseña?
                 </Link>
               </div>
             </div>

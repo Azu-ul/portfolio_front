@@ -9,6 +9,8 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showConfirmOverlay, setShowConfirmOverlay] = useState(false);
+  
+  const API_BASE_URL = 'https://portfolio-back-h389.onrender.com';
 
   const handleLogout = () => {
     setShowConfirmOverlay(true);

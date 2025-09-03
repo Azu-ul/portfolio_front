@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const BASE_URL = 'https://portfolio-back-h389.onrender.com';
+
 const Footer = () => {
   const [footerData, setFooterData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/content/footer');
+        const response = await fetch(`${BASE_URL}/api/content/footer`);
         if (!response.ok) throw new Error('Error al cargar los datos del footer');
         const data = await response.json();
         setFooterData(data);

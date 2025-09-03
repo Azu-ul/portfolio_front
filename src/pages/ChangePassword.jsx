@@ -49,7 +49,8 @@ export default function ChangePassword() {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:5000/api/auth/change-password', formData, {
+      // Agregar el prefijo a la ruta relativa
+      await axios.put('https://portfolio-back-h389.onrender.com/api/auth/change-password', formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

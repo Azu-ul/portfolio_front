@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const BASE_URL = 'https://portfolio-back-h389.onrender.com';
+
 // También actualizamos el NavBar
 export const MinimalNavBar = () => {
   return (
@@ -97,7 +99,7 @@ const Header = () => {
   useEffect(() => {
     const fetchHeaderData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/content/header');
+        const response = await fetch(`${BASE_URL}/api/content/header`);
         if (!response.ok) {
           throw new Error('Error al cargar los datos');
         }

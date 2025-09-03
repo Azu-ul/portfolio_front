@@ -53,7 +53,7 @@ export default function ResetPassword() {
     setLoading(true);
 
     try {
-      await axios.put('http://localhost:5000/api/auth/reset-password', formData);
+      await axios.put('https://portfolio-back-h389.onrender.com/api/auth/reset-password', formData);
       showOverlay('Contraseña reseteada con éxito. Por favor inicia sesión.', 'success');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
@@ -112,7 +112,7 @@ export default function ResetPassword() {
                 color: '#2c2c2c',
                 letterSpacing: '0.5px'
               }}>
-                Reset Password
+                Resetear Contraseña
               </h2>
 
               <form onSubmit={handleSubmit}>
@@ -126,7 +126,7 @@ export default function ResetPassword() {
                     disabled={loading} 
                     value={formData.email} 
                     onChange={handleInputChange}
-                    placeholder="your.email@domain.com"
+                    placeholder="tu.email@domain.com"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -143,7 +143,7 @@ export default function ResetPassword() {
                     disabled={loading} 
                     value={formData.newPassword} 
                     onChange={handleInputChange}
-                    placeholder="New password"
+                    placeholder="Nueva contraseña"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -160,7 +160,7 @@ export default function ResetPassword() {
                     disabled={loading} 
                     value={formData.confirmPassword} 
                     onChange={handleInputChange}
-                    placeholder="Confirm your password"
+                    placeholder="Confirmar contraseña"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -189,7 +189,7 @@ export default function ResetPassword() {
                   onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#1a1a1a')}
                   onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#2c2c2c')}
                 >
-                  {loading ? 'Resetting...' : 'Reset Password'}
+                  {loading ? 'Reseteando contraseña...' : 'Resetear Contraseña'}
                 </button>
               </form>
               
@@ -204,7 +204,7 @@ export default function ResetPassword() {
                   fontSize: '16px',
                   letterSpacing: '0.3px'
                 }}>
-                  Remember your password?
+                  Recuerdas tu contraseña?
                 </p>
                 <Link 
                   to="/login"
@@ -228,7 +228,7 @@ export default function ResetPassword() {
                     e.target.style.borderColor = '#2c2c2c';
                   }}
                 >
-                  Back to Login
+                  Volver al Ingreso
                 </Link>
               </div>
             </div>

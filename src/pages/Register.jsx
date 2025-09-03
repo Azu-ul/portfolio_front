@@ -61,7 +61,7 @@ export default function Register() {
     }
 
     try {
-      const emailExists = await axios.get(`http://localhost:5000/api/auth/check-email-exists?email=${formData.email}`);
+      const emailExists = await axios.get(`https://portfolio-back-h389.onrender.com/api/auth/check-email-exists?email=${formData.email}`);
       if (emailExists.data.exists) {
         showOverlay('El email ya está registrado.', 'error');
         return false;
@@ -89,10 +89,10 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post('https://portfolio-back-h389.onrender.com/api/auth/register', formData);
       showOverlay('Usuario registrado con éxito.', 'success');
       
-      const loginResponse = await axios.post('http://localhost:5000/api/auth/login', {
+      const loginResponse = await axios.post('https://portfolio-back-h389.onrender.com/api/auth/login', {
         email: formData.email,
         password: formData.password
       });
@@ -157,7 +157,7 @@ export default function Register() {
                 color: '#2c2c2c',
                 letterSpacing: '0.5px'
               }}>
-                Create Account
+                Crear Cuenta
               </h2>
               
               <form onSubmit={handleSubmit}>
@@ -207,7 +207,7 @@ export default function Register() {
                     disabled={loading} 
                     value={formData.email} 
                     onChange={handleInputChange}
-                    placeholder="your.email@domain.com"
+                    placeholder="tu.email@domain.com"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -224,7 +224,7 @@ export default function Register() {
                     disabled={loading} 
                     value={formData.password} 
                     onChange={handleInputChange}
-                    placeholder="Minimum 6 characters with a number"
+                    placeholder="Minimo 6 caracteres incluyendo un número"
                     style={inputStyle}
                     onFocus={(e) => e.target.style.borderBottomColor = '#2c2c2c'}
                     onBlur={(e) => e.target.style.borderBottomColor = '#ddd'}
@@ -235,7 +235,7 @@ export default function Register() {
                     marginTop: '12px',
                     letterSpacing: '0.3px'
                   }}>
-                    Password must be at least 6 characters and contain a number.
+                    La contraseña debe tener al menos 6 caracteres y contener un número.
                   </div>
                 </div>
                 
@@ -261,7 +261,7 @@ export default function Register() {
                   onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#1a1a1a')}
                   onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#2c2c2c')}
                 >
-                  {loading ? 'Creating account...' : 'Create Account'}
+                  {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
                 </button>
               </form>
               
@@ -276,7 +276,7 @@ export default function Register() {
                   fontSize: '16px',
                   letterSpacing: '0.3px'
                 }}>
-                  Already have an account?
+                  Ya tienes una cuenta?
                 </p>
                 <Link 
                   to="/login" 
@@ -300,7 +300,7 @@ export default function Register() {
                     e.target.style.borderColor = '#2c2c2c';
                   }}
                 >
-                  Sign In
+                  Ingresar
                 </Link>
               </div>
             </div>

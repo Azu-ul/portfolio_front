@@ -18,7 +18,7 @@ const MiCuenta = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/auth/me', {
+        const response = await axios.get('https://portfolio-back-h389.onrender.com/api/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,9 +40,9 @@ const MiCuenta = () => {
           <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '300px' }}>
             <div>
               <div className="spinner-border text-dark" role="status" style={{ width: '2rem', height: '2rem' }}>
-                <span className="visually-hidden">Loading...</span>
+                <span className="visually-hidden">Cargando...</span>
               </div>
-              <p className="mt-3 text-muted">Loading account data...</p>
+              <p className="mt-3 text-muted">Cargando datos de la cuenta...</p>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ const MiCuenta = () => {
                   
                 }}
               >
-                My Account
+                Mi cuenta
               </h2>
             </div>
 
@@ -94,7 +94,7 @@ const MiCuenta = () => {
                       letterSpacing: '0.5px'
                     }}
                   >
-                    Personal Information
+                    Información Personal
                   </h3>
 
                   <div className="row mb-4">
@@ -110,7 +110,7 @@ const MiCuenta = () => {
                             marginBottom: '0.5rem'
                           }}
                         >
-                          First Name
+                          Nombre
                         </label>
                         <p 
                           style={{
@@ -137,7 +137,7 @@ const MiCuenta = () => {
                             marginBottom: '0.5rem'
                           }}
                         >
-                          Last Name
+                          Apellido
                         </label>
                         <p 
                           style={{
@@ -191,7 +191,7 @@ const MiCuenta = () => {
                             marginBottom: '0.5rem'
                           }}
                         >
-                          Role
+                          Rol
                         </label>
                         <div className="d-flex align-items-center">
                           <span 
@@ -223,8 +223,8 @@ const MiCuenta = () => {
                           lineHeight: '1.7'
                         }}
                       >
-                        Want to change your password? <br />
-                        Click below to update your account security.
+                        Quieres cambiar tu contraseña? <br />
+                        Clickea abajo para aumentar la seguridad de tu cuenta.
                       </p>
                       <a 
                         onClick={() => navigate('/change-password')}
@@ -249,7 +249,7 @@ const MiCuenta = () => {
                           e.target.style.borderColor = '#F79995';
                         }}
                       >
-                        Change Password →
+                        Cambiar contraseña →
                       </a>
                     </div>
                   </div>

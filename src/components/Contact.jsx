@@ -15,7 +15,7 @@ const Contact = () => {
   useEffect(() => {
     const fetchContactData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/content/contact');
+        const response = await fetch('https://portfolio-back-h389.onrender.com/api/content/contact');
         if (!response.ok) throw new Error('Error al cargar los datos de contacto');
         const data = await response.json();
         setContactData(data);

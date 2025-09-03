@@ -10,7 +10,8 @@ const Skills = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/content/skills');
+        // Agregar el prefijo a la ruta relativa
+        const response = await axios.get('https://portfolio-back-h389.onrender.com/api/content/skills');
         setSkills(response.data);
       } catch (error) {
         console.error('Error fetching skills:', error);

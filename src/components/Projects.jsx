@@ -3,6 +3,8 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import '../styles/main.css';
 
+const BASE_URL = 'https://portfolio-back-h389.onrender.com';
+
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/portfolio');
+        const response = await axios.get(`${BASE_URL}/api/portfolio`);
         if (!response.data) throw new Error('No se encontraron proyectos');
         setProjects(response.data);
       } catch (error) {
@@ -30,7 +32,12 @@ const Projects = () => {
     if (!imageUrl || imageUrl.trim() === '') {
       return null;
     }
-    return imageUrl;
+    // Si la imagen ya es una URL completa, la devolvemos tal cual
+    if (imageUrl.startsWith('http')) {
+      return imageUrl;
+    }
+    // Si es una ruta relativa, la combinamos con la BASE_URL
+    return `${BASE_URL}${imageUrl}`;
   };
 
   if (loading) {
